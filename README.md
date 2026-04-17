@@ -73,7 +73,7 @@ You will need Node.js 20 or newer, the Netlify CLI installed globally (`npm inst
 Clone the repository, install dependencies, and create a local environment file based on the provided example. The `.env.example` file lists every variable the project expects; copy it to `.env` and fill in your Anthropic API key.
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Download-available/Hello-Galaxy
 cd hello-galaxy
 npm install
 cp .env.example .env
@@ -191,7 +191,8 @@ The serverless function includes basic abuse protections — a maximum message l
 
 This project is intentionally scoped small, but a few extensions would be natural additions if the core experience proves useful. A voice-input button on the chat interface would lower the friction of typing Thai on a touchscreen keyboard. A "show me" mode that walks through a feature with annotated screenshots would help for visual learners. A seasonal theming system could refresh the palette for Songkran, Loy Krathong, or the new year without touching component code.
 
-None of these are planned yet. The first version is meant to do one thing well: make her feel welcomed into her new phone.
+**None of these are planned yet.** 
+The first version is meant to do one thing well: <u><strong>make her feel welcomed into her new phone.</strong></u>
 
 ---
 
