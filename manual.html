@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>คู่มือการใช้งาน · Hello Galaxy</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .manual-hero {
+      background: linear-gradient(150deg, var(--blush) 0%, var(--cream-deep) 100%);
+      padding: 2rem 1.25rem 1.75rem;
+      text-align: center;
+    }
+    .manual-hero h1 { font-size: 1.5rem; margin-bottom: 0.35rem; }
+    .manual-hero p  { font-size: 0.9rem; color: var(--text-mid); margin: 0; }
+    .manual-body { padding: 1.5rem 0 3rem; }
+    .category-group { margin-bottom: 2rem; }
+    .category-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-light);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      padding-left: 0.25rem;
+    }
+    .no-results {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-light);
+    }
+    .no-results .icon { font-size: 2.5rem; display:block; margin-bottom:0.5rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <span class="nav-logo">🌸 Hello Galaxy</span>
+      <ul class="nav-links">
+        <li><a href="index.html">หน้าหลัก</a></li>
+        <li><a href="manual.html" class="active">คู่มือ</a></li>
+        <li><a href="storage.html">พื้นที่เก็บข้อมูล</a></li>
+        <li><a href="chat.html">ถามได้เลย</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="manual-hero">
+    <h1>📖 คู่มือการใช้งาน</h1>
+    <p>ค้นหาสิ่งที่อยากรู้ หรือเลือกหัวข้อที่สนใจได้เลย</p>
+  </div>
+
+  <div class="container">
+    <div class="manual-body">
+
+      <!-- Search -->
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="searchInput" placeholder="ค้นหา เช่น ถ่ายรูป, Wi-Fi, ล็อกหน้าจอ…" />
+      </div>
+
+      <!-- Filter tabs -->
+      <div class="filter-tabs" id="filterTabs">
+        <button class="filter-tab active" data-cat="all">ทั้งหมด</button>
+        <button class="filter-tab" data-cat="basics">เริ่มต้น</button>
+        <button class="filter-tab" data-cat="camera">กล้อง</button>
+        <button class="filter-tab" data-cat="calls">โทร &amp; ข้อความ</button>
+        <button class="filter-tab" data-cat="settings">ตั้งค่า</button>
+        <button class="filter-tab" data-cat="security">ความปลอดภัย</button>
+        <button class="filter-tab" data-cat="tips">เคล็ดลับ</button>
+      </div>
+
+      <!-- Cards container -->
+      <div id="cardsContainer"></div>
+      <div id="noResults" class="no-results hidden">
+        <span class="icon">🔍</span>
+        <p>ไม่พบสิ่งที่ค้นหา ลองถามผู้ช่วย AI แทนได้เลย</p>
+        <a href="chat.html" class="btn btn-soft" style="margin-top:0.75rem; display:inline-flex;">ถามผู้ช่วย AI →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span>🌸 ทำขึ้นด้วยความห่วงใย</span>
+    <span>Samsung Galaxy S26 Ultra · คู่มือส่วนตัว</span>
+  </footer>
+
+<script>
+// ======================================================
+// Manual content data
+// ======================================================
+const cards = [
+
+  // ==================== BASICS ====================
+  {
+    cat: 'basics', id: 'power',
+    icon: '⚡', title: 'เปิด-ปิด และรีสตาร์ทเครื่อง',
+    subtitle: 'กดปุ่มไหน ทำยังไง',
+    iphone: 'บน iPhone กดปุ่มด้านข้าง — บน S26 Ultra ก็เหมือนกันเลย',
+    body: `<p><strong>เปิดเครื่อง:</strong> กดปุ่มด้านข้าง (ขวาบน) ค้างไว้ประมาณ 2 วินาที</p>
+<p><strong>ปิดเครื่อง:</strong> กดปุ่มด้านข้าง + ปุ่มลดเสียงพร้อมกัน → แตะ "ปิดเครื่อง"</p>
+<p><strong>รีสตาร์ท:</strong> กดปุ่มด้านข้าง + ปุ่มลดเสียงพร้อมกัน → แตะ "ปิดและเปิดเครื่องใหม่"</p>
+<p><strong>เครื่องค้าง ไม่ตอบสนอง:</strong> กดปุ่มด้านข้าง + ปุ่มลดเสียงค้างไว้ 7 วินาที เครื่องจะรีสตาร์ทเอง</p>`,
+    keywords: 'เปิด ปิด รีสตาร์ท ค้าง'
+  },
+
+  {
+    cat: 'basics', id: 'navigation',
+    icon: '👆', title: 'การนำทางบนหน้าจอ',
+    subtitle: 'ปัดอย่างไร กดอะไร',
+    iphone: 'บน iPhone ใช้ปุ่ม Home และ Back บน S26 ใช้การปัดแทนได้ทั้งหมด',
+    body: `<ul class="steps-list">
+  <li>ปัดขึ้นจากด้านล่าง = กลับหน้าหลัก (แทนปุ่ม Home)</li>
+  <li>ปัดขึ้นค้างไว้นิดนึง = เห็นแอพทั้งหมดที่เปิดอยู่</li>
+  <li>ปัดจากขอบซ้ายหรือขวาเข้ามา = ย้อนกลับ</li>
+  <li>ปัดลงจากบนขวา = แผงการตั้งค่าด่วน (Wi-Fi, เสียง ฯลฯ)</li>
+  <li>ปัดลงจากบนซ้าย = การแจ้งเตือนทั้งหมด</li>
+</ul>`,
+    keywords: 'นำทาง ปัด หน้าหลัก ย้อนกลับ gesture'
+  },
+
+  {
+    cat: 'basics', id: 'lock',
+    icon: '🔒', title: 'ล็อกและปลดล็อกหน้าจอ',
+    subtitle: 'PIN, ลายนิ้วมือ, ใบหน้า',
+    iphone: 'บน iPhone ใช้ Face ID หรือ Touch ID — S26 Ultra มีทั้งสองอย่างเลย',
+    body: `<p><strong>ล็อกหน้าจอ:</strong> กดปุ่มด้านข้างหนึ่งครั้ง</p>
+<p><strong>ปลดล็อก:</strong> กดปุ่มด้านข้างแล้วปัด หรือวางนิ้วบนเซ็นเซอร์ที่กลางหน้าจอด้านล่าง</p>
+<p><strong>ตั้งค่าลายนิ้วมือ:</strong> ตั้งค่า → ความปลอดภัยและความเป็นส่วนตัว → การล็อกหน้าจอและชีวมาตร → ลายนิ้วมือ</p>
+<p><strong>ตั้งค่าจดจำใบหน้า:</strong> ตั้งค่า → ความปลอดภัยและความเป็นส่วนตัว → การล็อกหน้าจอและชีวมาตร → การจดจำใบหน้า</p>`,
+    keywords: 'ล็อก ปลดล็อก ลายนิ้วมือ ใบหน้า PIN รหัส'
+  },
+
+  {
+    cat: 'basics', id: 'homescreen',
+    icon: '🏠', title: 'หน้าจอหลักและแอพ',
+    subtitle: 'จัดวาง เพิ่ม ลบ ไอคอน',
+    iphone: 'บน iPhone จัดแอพได้บนหน้าจอหลัก — บน S26 ทำแบบเดิมได้เลย ลากกดค้างแล้วลาก',
+    body: `<p><strong>เพิ่มทางลัดแอพ:</strong> กดค้างที่แอพในหน้าจอแอพ → "เพิ่มในหน้าจอหลัก"</p>
+<p><strong>ลบแอพ:</strong> กดค้างที่ไอคอน → "ถอนการติดตั้ง" หรือ "นำออกจากหน้าจอ"</p>
+<p><strong>สร้างโฟลเดอร์:</strong> ลากไอคอนหนึ่งไปทับอีกอัน จะสร้างโฟลเดอร์อัตโนมัติ</p>
+<p><strong>เปลี่ยนวอลเปเปอร์:</strong> กดค้างที่หน้าจอว่าง → "วอลเปเปอร์และสไตล์"</p>
+<p><strong>ค้นหาแอพ:</strong> ปัดลงจากกลางหน้าจอ แล้วพิมพ์ชื่อแอพ</p>`,
+    keywords: 'หน้าจอหลัก แอพ ไอคอน วอลเปเปอร์ โฟลเดอร์ ค้นหา'
+  },
+
+  {
+    cat: 'basics', id: 'quicksettings',
+    icon: '🎛️', title: 'แผงการตั้งค่าด่วน',
+    subtitle: 'Wi-Fi, บลูทูธ, เสียง — เข้าถึงเร็ว',
+    iphone: 'บน iPhone คือ Control Center — ปัดลงจากขวาบน เหมือนกันเลย',
+    body: `<p>ปัดลงจาก<strong>มุมขวาบน</strong>ของหน้าจอ จะเห็นปุ่มควบคุมทั้งหมด</p>
+<ul class="steps-list">
+  <li>แตะปุ่ม = เปิด/ปิดทันที</li>
+  <li>กดค้างที่ปุ่ม = เข้าไปตั้งค่าละเอียด</li>
+  <li>แตะไอคอนดินสอ (✏️) = ปรับแต่งว่าจะแสดงปุ่มอะไรบ้าง</li>
+</ul>`,
+    keywords: 'การตั้งค่าด่วน control center wifi bluetooth เสียง'
+  },
+
+  {
+    cat: 'basics', id: 'charging',
+    icon: '🔋', title: 'การชาร์จแบตเตอรี่',
+    subtitle: 'สายชาร์จ, ไร้สาย, ชาร์จเร็ว',
+    iphone: 'iPhone ใช้ Lightning หรือ USB-C แต่ S26 Ultra ใช้ USB-C เหมือนกัน',
+    body: `<p><strong>ชาร์จแบบสาย:</strong> เสียบสาย USB-C ที่ช่องด้านล่างเครื่อง</p>
+<p><strong>ชาร์จไร้สาย:</strong> วางหลังเครื่องบนแท่นชาร์จไร้สาย หันหน้าหลังลง</p>
+<p><strong>ชาร์จเร็ว:</strong> ใช้หัวชาร์จของซัมซุง (25W หรือ 45W) จะชาร์จได้เร็วกว่ามาก</p>
+<p><strong>ดูสถานะการชาร์จ:</strong> ตั้งค่า → แบตเตอรี่</p>
+<p style="font-size:0.85rem; color:var(--text-light);">💡 ชาร์จได้เร็วขึ้นถ้าปิดหน้าจอขณะชาร์จ</p>`,
+    keywords: 'ชาร์จ แบตเตอรี่ ไร้สาย สาย USB-C'
+  },
+
+  {
+    cat: 'basics', id: 'spen',
+    icon: '✏️', title: 'S Pen — ปากกาในตัว',
+    subtitle: 'ดึงออกมาใช้งานได้เลย',
+    iphone: 'บน iPhone ไม่มี — S26 Ultra มีปากกาในตัวเครื่อง ดึงออกจากด้านล่างขวา',
+    body: `<p>ดึง S Pen ออกจากช่องด้านล่างขวาของเครื่อง</p>
+<p><strong>ใช้ทำอะไรได้บ้าง:</strong></p>
+<ul class="steps-list">
+  <li>เขียนบันทึก วาดรูป ลงลายเซ็น</li>
+  <li>จดบันทึกที่หน้าจอล็อก (โดยไม่ต้องปลดล็อก)</li>
+  <li>แปลข้อความโดยชี้ปากกาค้าง</li>
+  <li>กดปุ่มที่ปากกาค้างไว้แล้วลากเพื่อจับภาพหน้าจอ</li>
+</ul>
+<p style="font-size:0.85rem; color:var(--text-light);">💡 ใส่กลับเข้าช่องเพื่อชาร์จปากกาอัตโนมัติ</p>`,
+    keywords: 's pen ปากกา เขียน บันทึก'
+  },
+
+  // ==================== CAMERA ====================
+  {
+    cat: 'camera', id: 'camera-basics',
+    icon: '📸', title: 'เปิดกล้องและถ่ายรูปพื้นฐาน',
+    subtitle: 'เริ่มต้นใช้งานกล้อง',
+    iphone: 'เปิดกล้องเหมือน iPhone เลย — แตะไอคอนกล้อง หรือปัดซ้ายจากหน้าจอล็อก',
+    body: `<p><strong>เปิดกล้อง:</strong> แตะไอคอนกล้อง หรือปัดซ้ายจากหน้าจอล็อก</p>
+<p><strong>ถ่ายรูป:</strong> กดปุ่มกลมขาวๆ ด้านล่างหน้าจอ</p>
+<p><strong>สลับกล้องหน้า-หลัง:</strong> แตะไอคอนสองวงกลมหมุน หรือปัดขึ้น-ลงบนหน้าจอ</p>
+<p><strong>ซูม:</strong> บีบนิ้วเข้า-ออก หรือแตะตัวเลข 1x, 3x, 10x ที่มุมหน้าจอ</p>
+<p><strong>ถ่ายวิดีโอ:</strong> แตะ "วิดีโอ" ในรายการโหมด แล้วกดปุ่มสีแดง</p>`,
+    keywords: 'กล้อง ถ่ายรูป ซูม วิดีโอ เปิดกล้อง'
+  },
+
+  {
+    cat: 'camera', id: 'camera-portrait',
+    icon: '🎭', title: 'โหมดภาพบุคคล (Portrait)',
+    subtitle: 'พื้นหลังเบลอ วัตถุชัด',
+    iphone: 'เหมือน Portrait Mode บน iPhone — หาได้ที่รายการโหมดชื่อ "ภาพบุคคล"',
+    body: `<ul class="steps-list">
+  <li>เปิดกล้อง → แตะ "ภาพบุคคล" ในรายการโหมดด้านล่าง</li>
+  <li>ชี้กล้องไปที่วัตถุ รอให้ขึ้นคำว่า "พร้อม"</li>
+  <li>ปรับความเบลอพื้นหลังได้โดยลากแถบที่ด้านข้าง</li>
+  <li>กดถ่ายได้เลย</li>
+</ul>
+<p style="font-size:0.85rem; color:var(--text-light);">💡 ใช้ในที่มีแสงเพียงพอ ผลลัพธ์จะดีกว่ามาก</p>`,
+    keywords: 'portrait ภาพบุคคล เบลอ bokeh พื้นหลัง'
+  },
+
+  {
+    cat: 'camera', id: 'camera-nightmode',
+    icon: '🌙', title: 'ถ่ายรูปตอนกลางคืน',
+    subtitle: 'ภาพสว่างแม้แสงน้อย',
+    iphone: 'เหมือน Night Mode บน iPhone — S26 Ultra ทำได้โดยอัตโนมัติ',
+    body: `<p>กล้องจะปรับโหมดกลางคืนอัตโนมัติเมื่อแสงน้อย — ไม่ต้องเลือกเอง</p>
+<p><strong>เทคนิคถ่ายกลางคืนให้ชัด:</strong></p>
+<ul class="steps-list">
+  <li>จับเครื่องให้นิ่งที่สุด หรือวางบนพื้นราบ</li>
+  <li>รอจนไอคอน "กลางคืน" หายไปก่อนจึงขยับ</li>
+  <li>หลีกเลี่ยงแสงที่สว่างมากในเฟรม เช่น ไฟถนนตรงๆ</li>
+</ul>
+<p style="font-size:0.85rem; color:var(--text-light);">💡 ใช้ขาตั้งเล็กๆ ได้ผลดีมากตอนกลางคืน</p>`,
+    keywords: 'กลางคืน night แสงน้อย ชัด ภาพ'
+  },
+
+  {
+    cat: 'camera', id: 'camera-zoom',
+    icon: '🔭', title: 'ซูมได้ถึง 200 เท่า',
+    subtitle: 'Space Zoom — จุดเด่นของ S26 Ultra',
+    iphone: 'iPhone ซูมออปติคัลได้ 3-5x บน S26 Ultra ซูมได้ถึง 200x',
+    body: `<p>S26 Ultra มีเลนส์ 4 ตัว รองรับซูมออปติคัลหลายระดับ:</p>
+<ul class="steps-list">
+  <li>1x = มุมกว้างปกติ</li>
+  <li>3x = ซูมใกล้ขึ้น ยังชัดมาก</li>
+  <li>10x = ออปติคัลซูม คมชัดระดับมืออาชีพ</li>
+  <li>30x–200x = ดิจิทัลซูม เห็นได้ไกลมาก แต่อาจเม็ดนิดนึง</li>
+</ul>
+<p style="font-size:0.85rem; color:var(--text-light);">💡 ซูม 10x–30x มักให้ผลดีที่สุดสำหรับการใช้งานทั่วไป</p>`,
+    keywords: 'ซูม zoom 200x space zoom เลนส์ telescope'
+  },
+
+  {
+    cat: 'camera', id: 'camera-gallery',
+    icon: '🖼️', title: 'แกลเลอรี — ดูและจัดการรูป',
+    subtitle: 'ค้นหา แก้ไข จัดอัลบั้ม',
+    iphone: 'เหมือน Photos app บน iPhone — เปิดแอพ "แกลเลอรี"',
+    body: `<p><strong>เปิดแกลเลอรี:</strong> แตะไอคอน "แกลเลอรี" บนหน้าจอหลัก</p>
+<p><strong>แก้ไขรูป:</strong> เปิดรูป → แตะไอคอนดินสอ (✏️)</p>
+<p><strong>รีมาสเตอร์รูปเก่า:</strong> เปิดรูป → ปัดขึ้น → แตะ "รีมาสเตอร์" (AI ปรับภาพให้คมขึ้น)</p>
+<p><strong>ลบรูป:</strong> กดค้างเพื่อเลือกหลายรูป → แตะถังขยะ</p>
+<p><strong>แชร์รูป:</strong> เปิดรูป → แตะไอคอนแชร์ → เลือกแอพ</p>`,
+    keywords: 'แกลเลอรี รูปภาพ อัลบั้ม แก้ไข ลบ แชร์'
+  },
+
+  {
+    cat: 'camera', id: 'camera-screenshot',
+    icon: '📋', title: 'จับภาพหน้าจอ',
+    subtitle: 'Screenshot ทำยังไง',
+    iphone: 'บน iPhone กดปุ่มด้านข้าง + ปุ่มขึ้นเสียง — S26 ใช้ปุ่มด้านข้าง + ลดเสียงแทน',
+    body: `<p><strong>วิธีที่ 1:</strong> กดปุ่มด้านข้าง + ปุ่มลดเสียงพร้อมกัน</p>
+<p><strong>วิธีที่ 2:</strong> ปัดฝ่ามือข้ามหน้าจอจากขวาไปซ้าย (หรือซ้ายไปขวา)</p>
+<p><strong>วิธีที่ 3:</strong> ใช้ S Pen — กดปุ่มที่ปากกาค้างแล้วลาก</p>
+<p>รูปจะบันทึกใน แกลเลอรี → อัลบั้ม → Screenshots</p>`,
+    keywords: 'screenshot จับภาพหน้าจอ ภาพหน้าจอ capture'
+  },
+
+  // ==================== CALLS & MESSAGES ====================
+  {
+    cat: 'calls', id: 'phone-calls',
+    icon: '📞', title: 'โทรออกและรับสาย',
+    subtitle: 'ใช้งานโทรศัพท์พื้นฐาน',
+    iphone: 'เหมือน iPhone เลย — แตะแอพ "โทรศัพท์"',
+    body: `<p><strong>โทรออก:</strong> เปิดแอพ "โทรศัพท์" → แตะ "แป้นหมายเลข" → กดหมายเลข → กดโทร</p>
+<p><strong>โทรจากรายชื่อ:</strong> เปิดแอพ "โทรศัพท์" → แตะ "รายชื่อ" → เลือกคน → กดโทร</p>
+<p><strong>รับสาย:</strong> ปัดขวาบนไอคอนโทรศัพท์สีเขียว</p>
+<p><strong>ปฏิเสธสาย:</strong> ปัดซ้ายบนไอคอนโทรศัพท์สีแดง</p>
+<p><strong>ดูประวัติการโทร:</strong> เปิดแอพ "โทรศัพท์" → แตะ "ล่าสุด"</p>`,
+    keywords: 'โทร รับสาย โทรออก ปฏิเสธ ประวัติ'
+  },
+
+  {
+    cat: 'calls', id: 'contacts',
+    icon: '👥', title: 'รายชื่อผู้ติดต่อ',
+    subtitle: 'เพิ่ม แก้ไข ค้นหาเบอร์',
+    iphone: 'รายชื่อ iCloud ย้ายมาแล้วผ่าน Smart Switch หรือ Google Contacts',
+    body: `<p><strong>เปิดรายชื่อ:</strong> แตะแอพ "รายชื่อ" หรือเข้าผ่านแอพโทรศัพท์</p>
+<p><strong>เพิ่มรายชื่อใหม่:</strong> กดปุ่ม + มุมขวาบน → กรอกข้อมูล → บันทึก</p>
+<p><strong>ค้นหา:</strong> แตะช่องค้นหา → พิมพ์ชื่อหรือเบอร์</p>
+<p><strong>นำเข้าจาก iPhone:</strong> ใช้ Smart Switch (ตั้งค่า → บัญชีและแบ็คอัพ → ถ่ายโอนข้อมูล)</p>`,
+    keywords: 'รายชื่อ ผู้ติดต่อ contact เพิ่ม ค้นหา นำเข้า'
+  },
+
+  {
+    cat: 'calls', id: 'messages',
+    icon: '💌', title: 'ส่งข้อความ SMS และแอพแชท',
+    subtitle: 'Messages, WhatsApp, Line, Lark',
+    iphone: 'iMessage ใช้ไม่ได้บน Android แต่ SMS ธรรมดาใช้ได้ และ WhatsApp ก็เหมือนเดิม',
+    body: `<p><strong>SMS ปกติ:</strong> เปิดแอพ "Messages" → กด + → พิมพ์ชื่อ → พิมพ์ข้อความ → ส่ง</p>
+<p><strong>WhatsApp:</strong> ดาวน์โหลดจาก Play Store → ล็อกอินด้วยเบอร์เดิม → ข้อความและประวัติย้ายมาได้</p>
+<p><strong>Line:</strong> ดาวน์โหลดจาก Play Store → ล็อกอินด้วยบัญชีเดิม</p>
+<p><strong>Lark/Feishu:</strong> ดาวน์โหลดจาก Play Store → ล็อกอินด้วยบัญชีที่ใช้งาน</p>
+<div class="iphone-note">⚠️ iMessage ไม่มีบน Android นะมด ถ้าเพื่อนส่ง iMessage มา จะมาเป็น SMS สีเขียวแทน ใช้ WhatsApp หรือ Line คุยต่อได้เลย</div>`,
+    keywords: 'ข้อความ sms whatsapp line lark chat imessage'
+  },
+
+  {
+    cat: 'calls', id: 'wifi',
+    icon: '📶', title: 'เชื่อมต่อ Wi-Fi',
+    subtitle: 'ตั้งค่า เชื่อมต่อ แก้ปัญหา',
+    iphone: 'เหมือน iPhone เลย — ตั้งค่า → Wi-Fi',
+    body: `<ul class="steps-list">
+  <li>เปิด "ตั้งค่า" → แตะ "การเชื่อมต่อ" → แตะ "Wi-Fi"</li>
+  <li>เปิดสวิตช์ Wi-Fi</li>
+  <li>เลือกชื่อ Wi-Fi ที่ต้องการ</li>
+  <li>กรอกรหัสผ่าน → แตะ "เชื่อมต่อ"</li>
+</ul>
+<p><strong>ลืมรหัส Wi-Fi:</strong> กดค้างที่ชื่อ Wi-Fi → "ดูรหัสผ่าน" (ต้องใช้ลายนิ้วมือยืนยัน)</p>`,
+    keywords: 'wifi เน็ต อินเทอร์เน็ต เชื่อมต่อ รหัสผ่าน'
+  },
+
+  {
+    cat: 'calls', id: 'bluetooth',
+    icon: '🎧', title: 'Bluetooth — เชื่อมต่ออุปกรณ์',
+    subtitle: 'หูฟัง ลำโพง นาฬิกา',
+    iphone: 'เหมือน iPhone — ตั้งค่า → Bluetooth หรือเปิดจากแผงด่วน',
+    body: `<ul class="steps-list">
+  <li>ปัดลงจากขวาบน → แตะไอคอน Bluetooth เพื่อเปิด</li>
+  <li>ตั้งค่า → การเชื่อมต่อ → Bluetooth</li>
+  <li>เปิดโหมดจับคู่บนอุปกรณ์ที่ต้องการ (เช่น กดค้างปุ่มบนหูฟัง)</li>
+  <li>แตะชื่ออุปกรณ์ในรายการ → เชื่อมต่อ</li>
+</ul>`,
+    keywords: 'bluetooth หูฟัง ลำโพง จับคู่ เชื่อมต่อ'
+  },
+
+  // ==================== SETTINGS ====================
+  {
+    cat: 'settings', id: 'display',
+    icon: '🌈', title: 'ปรับความสว่างและหน้าจอ',
+    subtitle: 'ความสว่าง สี ขนาดตัวอักษร',
+    iphone: 'ตั้งค่าหน้าจออยู่ที่เดียวกัน — ตั้งค่า → จอภาพ',
+    body: `<p><strong>ความสว่าง:</strong> ปัดลงจากขวาบน → ลากแถบความสว่าง</p>
+<p><strong>ตั้งค่าหน้าจอละเอียด:</strong> ตั้งค่า → จอภาพ</p>
+<p><strong>ขนาดตัวอักษร:</strong> ตั้งค่า → จอภาพ → ขนาดและสไตล์ตัวอักษร</p>
+<p><strong>Dark Mode:</strong> ตั้งค่า → จอภาพ → ความสว่างสีหน้าจอ → มืด</p>
+<p><strong>Always On Display:</strong> ตั้งค่า → หน้าจอล็อกและ AOD → Always On Display</p>`,
+    keywords: 'ความสว่าง หน้าจอ ตัวอักษร dark mode สี'
+  },
+
+  {
+    cat: 'settings', id: 'sound',
+    icon: '🔊', title: 'เสียงและการสั่น',
+    subtitle: 'ระดับเสียง โหมดเงียบ เสียงแจ้งเตือน',
+    iphone: 'สวิตช์ปิดเสียงบน iPhone อยู่ด้านข้าง — บน S26 ต้องใช้ปุ่มลดเสียงหรือแผงด่วน',
+    body: `<p><strong>ปรับระดับเสียง:</strong> กดปุ่มขึ้น/ลดเสียงด้านซ้ายของเครื่อง</p>
+<p><strong>โหมดเงียบ/สั่น:</strong> กดปุ่มลดเสียงจนสุด หรือปัดแผงด่วนแตะไอคอนเสียง</p>
+<p><strong>ตั้งค่าเสียงละเอียด:</strong> ตั้งค่า → เสียงและการสั่น</p>
+<p><strong>เสียงเรียกเข้า:</strong> ตั้งค่า → เสียงและการสั่น → เสียงเรียกเข้า</p>`,
+    keywords: 'เสียง สั่น เงียบ ระดับเสียง เสียงเรียกเข้า'
+  },
+
+  {
+    cat: 'settings', id: 'battery',
+    icon: '🔋', title: 'ยืดอายุแบตเตอรี่',
+    subtitle: 'โหมดประหยัดพลังงาน เคล็ดลับ',
+    iphone: 'Low Power Mode บน iPhone = โหมดประหยัดพลังงานบน S26',
+    body: `<p><strong>เปิดโหมดประหยัดพลังงาน:</strong> ตั้งค่า → แบตเตอรี่ → โหมดประหยัดพลังงาน</p>
+<p><strong>เคล็ดลับประหยัดแบต:</strong></p>
+<ul class="steps-list">
+  <li>ลดความสว่างหน้าจอ</li>
+  <li>ปิด Wi-Fi และ Bluetooth เมื่อไม่ใช้</li>
+  <li>ปิดแอพที่ทำงานค้างในพื้นหลัง</li>
+  <li>ลดเวลาหน้าจอดับอัตโนมัติ</li>
+</ul>`,
+    keywords: 'แบตเตอรี่ ประหยัด power saving ชาร์จ'
+  },
+
+  {
+    cat: 'settings', id: 'samsung-account',
+    icon: '☁️', title: 'Samsung Account และ Cloud',
+    subtitle: 'แบ็คอัพข้อมูลและซิงค์',
+    iphone: 'เหมือน Apple ID บน iPhone — Samsung Account ใช้แบ็คอัพและดาวน์โหลดแอพ',
+    body: `<p><strong>ล็อกอิน Samsung Account:</strong> ตั้งค่า → ล็อกอิน Galaxy ของคุณ</p>
+<p><strong>ดูข้อมูลที่แบ็คอัพ:</strong> ตั้งค่า → บัญชีและแบ็คอัพ → Samsung Cloud</p>
+<p><strong>ประโยชน์ Samsung Account:</strong></p>
+<ul class="steps-list">
+  <li>แบ็คอัพรายชื่อ ข้อความ รูปภาพไปยัง Cloud</li>
+  <li>ดาวน์โหลดแอพจาก Galaxy Store</li>
+  <li>ค้นหาเครื่องเมื่อหาย</li>
+</ul>`,
+    keywords: 'samsung account cloud backup แบ็คอัพ ล็อกอิน'
+  },
+
+  {
+    cat: 'settings', id: 'google-account',
+    icon: '🟢', title: 'Google Account และ Play Store',
+    subtitle: 'ล็อกอิน Google ดาวน์โหลดแอพ',
+    iphone: 'App Store บน iPhone = Play Store บน Android',
+    body: `<p><strong>ล็อกอิน Google:</strong> ตั้งค่า → บัญชีและแบ็คอัพ → จัดการบัญชี → เพิ่มบัญชี → Google</p>
+<p><strong>ดาวน์โหลดแอพ:</strong> เปิด "Play Store" → ค้นหาแอพ → แตะ "ติดตั้ง"</p>
+<p><strong>แอพ Google ที่ใช้บ่อย:</strong></p>
+<ul class="steps-list">
+  <li>Google Photos — แบ็คอัพรูปภาพ</li>
+  <li>Google Drive — ไฟล์ทุกอย่าง</li>
+  <li>Gmail — อีเมล</li>
+  <li>Google Maps — แผนที่</li>
+</ul>`,
+    keywords: 'google play store download แอพ ล็อกอิน'
+  },
+
+  {
+    cat: 'settings', id: 'update',
+    icon: '🔄', title: 'อัปเดตซอฟต์แวร์',
+    subtitle: 'ตรวจสอบและติดตั้งอัปเดต',
+    iphone: 'เหมือน iPhone — ตั้งค่า → อัปเดตซอฟต์แวร์',
+    body: `<ul class="steps-list">
+  <li>เปิด "ตั้งค่า"</li>
+  <li>เลื่อนลงมาแตะ "อัปเดตซอฟต์แวร์"</li>
+  <li>แตะ "ดาวน์โหลดและติดตั้ง"</li>
+  <li>รอจนเสร็จ (แนะนำให้ชาร์จไว้ก่อน)</li>
+</ul>
+<p style="font-size:0.85rem; color:var(--text-light);">💡 อัปเดตช่วยให้เครื่องปลอดภัยและทำงานได้ดีขึ้น</p>`,
+    keywords: 'อัปเดต update ซอฟต์แวร์ software'
+  },
+
+  // ==================== SECURITY ====================
+  {
+    cat: 'security', id: 'face-recognition',
+    icon: '😊', title: 'ตั้งค่าจดจำใบหน้า',
+    subtitle: 'ปลดล็อกด้วยใบหน้า เหมือน Face ID',
+    iphone: 'เหมือน Face ID บน iPhone — ทำแบบเดิมได้เลย',
+    body: `<ul class="steps-list">
+  <li>ตั้งค่า → ความปลอดภัยฯ → การล็อกหน้าจอและชีวมาตร</li>
+  <li>แตะ "การจดจำใบหน้า"</li>
+  <li>ตั้ง PIN หรือรหัสผ่านสำรองก่อน</li>
+  <li>แตะ "ลงทะเบียน" → หันหน้าให้กล้องสแกน</li>
+</ul>
+<p style="font-size:0.85rem; color:var(--text-light);">💡 ลงทะเบียนในที่มีแสงสว่างเพียงพอ ผลดีกว่ามาก</p>`,
+    keywords: 'ใบหน้า face id จดจำ ปลดล็อก'
+  },
+
+  {
+    cat: 'security', id: 'fingerprint',
+    icon: '👆', title: 'ตั้งค่าลายนิ้วมือ',
+    subtitle: 'เซ็นเซอร์อยู่บนหน้าจอ กลางล่าง',
+    iphone: 'Touch ID บน iPhone — S26 Ultra มีเซ็นเซอร์บนหน้าจอแทน',
+    body: `<ul class="steps-list">
+  <li>ตั้งค่า → ความปลอดภัยฯ → การล็อกหน้าจอและชีวมาตร</li>
+  <li>แตะ "ลายนิ้วมือ"</li>
+  <li>วางนิ้วตรงกึ่งกลางล่างหน้าจอซ้ำๆ ตามที่หน้าจอแนะนำ</li>
+  <li>ลงทะเบียนได้หลายนิ้ว แนะนำลงทั้งสองมือ</li>
+</ul>`,
+    keywords: 'ลายนิ้วมือ fingerprint touch id ปลดล็อก'
+  },
+
+  {
+    cat: 'security', id: 'find-my-phone',
+    icon: '📍', title: 'ค้นหาเครื่องเมื่อหาย',
+    subtitle: 'Find My Mobile — เหมือน Find My iPhone',
+    iphone: 'Find My บน iPhone = Find My Mobile บน Samsung',
+    body: `<p>เปิดคุณสมบัตินี้ไว้ก่อนที่เครื่องจะหาย:</p>
+<ul class="steps-list">
+  <li>ตั้งค่า → ความปลอดภัยฯ → การป้องกันอุปกรณ์สูญหาย</li>
+  <li>เปิดสวิตช์ "ค้นหาโทรศัพท์มือถือของฉัน"</li>
+</ul>
+<p><strong>เมื่อเครื่องหาย:</strong> เข้า <a href="https://smartthingsfind.samsung.com" target="_blank">smartthingsfind.samsung.com</a> จากคอมพิวเตอร์</p>`,
+    keywords: 'หาย ค้นหา find my mobile ติดตาม'
+  },
+
+  {
+    cat: 'security', id: 'secure-folder',
+    icon: '🔐', title: 'โฟลเดอร์ที่ปลอดภัย',
+    subtitle: 'เก็บรูปและแอพไว้ในพื้นที่ล็อค',
+    iphone: 'บน iPhone ไม่มีเทียบเท่า — นี่คือฟีเจอร์เฉพาะ Samsung',
+    body: `<p>Secure Folder คือพื้นที่ส่วนตัวที่ล็อกแยกต่างหาก — แอพและรูปในนั้นจะไม่เห็นจากข้างนอก</p>
+<ul class="steps-list">
+  <li>ตั้งค่า → ความปลอดภัยฯ → การตั้งค่าความปลอดภัยเพิ่มเติม</li>
+  <li>แตะ "โฟลเดอร์ที่ปลอดภัย"</li>
+  <li>ล็อกอิน Samsung Account และตั้งรหัส</li>
+</ul>`,
+    keywords: 'secure folder โฟลเดอร์ ปลอดภัย ส่วนตัว ล็อก'
+  },
+
+  // ==================== TIPS ====================
+  {
+    cat: 'tips', id: 'multiwindow',
+    icon: '📱', title: 'ใช้งานสองแอพพร้อมกัน',
+    subtitle: 'Split Screen — ดูรูปพร้อมพิมพ์ข้อความ',
+    iphone: 'บน iPhone (บาง model) มี Split View — S26 Ultra ทำได้ง่ายมาก',
+    body: `<ul class="steps-list">
+  <li>ปัดขึ้นค้างไว้ → แตะไอคอน "⊡" ที่ด้านบนของแอพ</li>
+  <li>เลือก "เปิดในมุมมองแยก"</li>
+  <li>เลือกแอพที่สองจากรายการ</li>
+  <li>ลากแถบกลางเพื่อปรับขนาด</li>
+</ul>`,
+    keywords: 'สองแอพ split screen multi window มัลติ'
+  },
+
+  {
+    cat: 'tips', id: 'bixby',
+    icon: '🤖', title: 'Bixby — ผู้ช่วยเสียง Samsung',
+    subtitle: 'สั่งงานด้วยเสียง',
+    iphone: 'Siri บน iPhone = Bixby บน Samsung (หรือจะใช้ Google Assistant แทนก็ได้)',
+    body: `<p><strong>เรียก Bixby:</strong> กดปุ่มด้านข้างค้างไว้ (ถ้าตั้งไว้)</p>
+<p><strong>หรือใช้ Google Assistant:</strong> พูดว่า "Hey Google" หรือกด Home ค้างไว้</p>
+<p><strong>สิ่งที่สั่งได้:</strong></p>
+<ul class="steps-list">
+  <li>"ตั้งนาฬิกาปลุก 7 โมงเช้า"</li>
+  <li>"โทรหา [ชื่อ]"</li>
+  <li>"ส่ง WhatsApp ถึง [ชื่อ] ว่า..."</li>
+  <li>"เปิดกล้อง"</li>
+</ul>`,
+    keywords: 'bixby google assistant เสียง สั่งงาน voice'
+  },
+
+  {
+    cat: 'tips', id: 'galaxy-ai',
+    icon: '✨', title: 'Galaxy AI — AI ในตัวเครื่อง',
+    subtitle: 'แปลภาษา สรุปข้อความ วาดรูป',
+    iphone: 'iPhone มี Apple Intelligence — S26 Ultra มี Galaxy AI ที่ทำได้เยอะมาก',
+    body: `<p>Galaxy AI มีหลายอย่างน่าสนใจ:</p>
+<ul class="steps-list">
+  <li><strong>แปลสด:</strong> ระหว่างโทร แปลภาษาได้เรียลไทม์</li>
+  <li><strong>สรุปข้อความ:</strong> กดค้างข้อความ → เลือก "สรุป"</li>
+  <li><strong>ลบวัตถุจากรูป:</strong> แกลเลอรี → แตะรูป → วาดวงรอบวัตถุ → "ลบ"</li>
+  <li><strong>Circle to Search:</strong> กดปุ่ม Home ค้าง → วาดวงรอบสิ่งที่อยากค้นหา</li>
+</ul>`,
+    keywords: 'galaxy ai ปัญญาประดิษฐ์ แปล สรุป AI'
+  },
+
+  {
+    cat: 'tips', id: 'do-not-disturb',
+    icon: '🌙', title: 'ห้ามรบกวน (Do Not Disturb)',
+    subtitle: 'ปิดการแจ้งเตือนทั้งหมด',
+    iphone: 'Focus Mode บน iPhone = ห้ามรบกวนบน Android',
+    body: `<p><strong>เปิดด่วน:</strong> ปัดแผงด่วน → แตะไอคอน "ห้ามรบกวน" (รูปพระจันทร์หรือ -)</p>
+<p><strong>ตั้งเวลาอัตโนมัติ:</strong> ตั้งค่า → เสียงและการสั่น → ห้ามรบกวน → เพิ่มตาราง</p>
+<p><strong>อนุญาตเฉพาะบางคน:</strong> ตั้งค่า → เสียงและการสั่น → ห้ามรบกวน → ข้อยกเว้น</p>`,
+    keywords: 'ห้ามรบกวน do not disturb เงียบ โหมดกลางคืน'
+  },
+
+  {
+    cat: 'tips', id: 'smart-switch',
+    icon: '🔁', title: 'Smart Switch — ย้ายข้อมูลจาก iPhone',
+    subtitle: 'ถ่ายโอนรายชื่อ รูปภาพ และอื่นๆ',
+    iphone: 'Smart Switch ช่วยย้ายข้อมูลจาก iPhone มา Samsung ได้ง่ายมาก',
+    body: `<ul class="steps-list">
+  <li>ตั้งค่า → บัญชีและแบ็คอัพ → ถ่ายโอนข้อมูลเพื่อตั้งค่าอุปกรณ์</li>
+  <li>เลือก "จาก iPhone/iPad"</li>
+  <li>เชื่อมต่อสาย USB หรือใช้ Wi-Fi</li>
+  <li>เลือกข้อมูลที่ต้องการย้าย → เริ่ม</li>
+</ul>
+<p>ย้ายได้: รายชื่อ, รูปภาพ, ข้อความ, ปฏิทิน, บันทึก</p>`,
+    keywords: 'smart switch ย้ายข้อมูล iphone transfer migrate'
+  },
+
+  {
+    cat: 'tips', id: 'troubleshoot',
+    icon: '🔧', title: 'แก้ปัญหาเบื้องต้น',
+    subtitle: 'เครื่องช้า แอพค้าง รีสตาร์ท',
+    iphone: 'ทำแบบเดิมกับ iPhone เลย — รีสตาร์ทก่อนเสมอ',
+    body: `<p><strong>เครื่องช้าหรือแอพค้าง:</strong></p>
+<ul class="steps-list">
+  <li>รีสตาร์ทเครื่อง — แก้ปัญหาได้เยอะมาก</li>
+  <li>ปัดขึ้นค้าง → ปัดแอพที่ค้างออก</li>
+  <li>ตั้งค่า → การดูแลอุปกรณ์ → ปรับให้เหมาะสม</li>
+</ul>
+<p><strong>Wi-Fi เชื่อมต่อไม่ได้:</strong></p>
+<ul class="steps-list">
+  <li>ปิด-เปิด Wi-Fi ใหม่</li>
+  <li>ลืมเครือข่าย → เชื่อมต่อใหม่</li>
+  <li>รีสตาร์ทเราเตอร์</li>
+</ul>`,
+    keywords: 'แก้ปัญหา ช้า ค้าง รีสตาร์ท troubleshoot'
+  },
+
+];
+
+// ======================================================
+// Render & Filter Logic
+// ======================================================
+const container = document.getElementById('cardsContainer');
+const noResults  = document.getElementById('noResults');
+const searchInput = document.getElementById('searchInput');
+const filterButtons = document.querySelectorAll('.filter-tab');
+
+let currentCat = 'all';
+let currentSearch = '';
+
+function renderCards() {
+  const q = currentSearch.toLowerCase().trim();
+  let filtered = cards.filter(c => {
+    const catMatch = currentCat === 'all' || c.cat === currentCat;
+    const searchMatch = !q ||
+      c.title.toLowerCase().includes(q) ||
+      (c.subtitle||'').toLowerCase().includes(q) ||
+      (c.keywords||'').toLowerCase().includes(q) ||
+      (c.body||'').toLowerCase().includes(q);
+    return catMatch && searchMatch;
+  });
+
+  container.innerHTML = '';
+
+  if (filtered.length === 0) {
+    noResults.classList.remove('hidden');
+    return;
+  }
+  noResults.classList.add('hidden');
+
+  // Group by category if showing all
+  if (currentCat === 'all' && !q) {
+    const groups = {
+      basics:   { label: '🌱 เริ่มต้นใช้งาน', cards: [] },
+      camera:   { label: '📷 กล้องและรูปภาพ', cards: [] },
+      calls:    { label: '📞 โทรและเชื่อมต่อ', cards: [] },
+      settings: { label: '⚙️ การตั้งค่า', cards: [] },
+      security: { label: '🔒 ความปลอดภัย', cards: [] },
+      tips:     { label: '✨ เคล็ดลับและลัด', cards: [] },
+    };
+    filtered.forEach(c => { if (groups[c.cat]) groups[c.cat].cards.push(c); });
+
+    Object.values(groups).forEach(g => {
+      if (!g.cards.length) return;
+      const groupEl = document.createElement('div');
+      groupEl.className = 'category-group';
+      groupEl.innerHTML = `<div class="category-label">${g.label}</div>`;
+      g.cards.forEach(c => groupEl.appendChild(makeCard(c)));
+      container.appendChild(groupEl);
+    });
+  } else {
+    filtered.forEach(c => container.appendChild(makeCard(c)));
+  }
+}
+
+function makeCard(c) {
+  const div = document.createElement('div');
+  div.className = 'manual-card';
+  div.id = c.id;
+  div.innerHTML = `
+    <div class="manual-card-header" onclick="toggleCard(this)">
+      <span class="manual-card-icon">${c.icon}</span>
+      <div class="manual-card-title">
+        <h3>${c.title}</h3>
+        <span class="subtitle">${c.subtitle || ''}</span>
+      </div>
+      <svg class="manual-card-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="manual-card-body">
+      ${c.body}
+      ${c.iphone ? `<div class="iphone-note">📱 <strong>มาจาก iPhone?</strong> ${c.iphone}</div>` : ''}
+    </div>`;
+  return div;
+}
+
+function toggleCard(header) {
+  const card = header.closest('.manual-card');
+  const wasOpen = card.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.manual-card.open').forEach(c => c.classList.remove('open'));
+  if (!wasOpen) card.classList.add('open');
+}
+
+filterButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentCat = btn.dataset.cat;
+    renderCards();
+  });
+});
+
+searchInput.addEventListener('input', () => {
+  currentSearch = searchInput.value;
+  renderCards();
+});
+
+// Initial render
+renderCards();
+
+// Deep link: open card if URL hash matches
+if (location.hash) {
+  const id = location.hash.slice(1);
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const header = el.querySelector('.manual-card-header');
+      if (header) toggleCard(header);
+    }
+  }, 300);
+}
+</script>
+</body>
+</html>

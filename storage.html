@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>พื้นที่เก็บข้อมูล · Hello Galaxy</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .storage-hero {
+      background: linear-gradient(150deg, var(--sage) 0%, var(--cream-deep) 100%);
+      padding: 2.25rem 1.25rem 2rem;
+      text-align: center;
+    }
+    .storage-hero h1 { font-size: 1.5rem; margin-bottom: 0.35rem; }
+    .storage-hero p  { font-size: 0.9rem; color: var(--text-mid); max-width: 360px; margin: 0 auto; }
+
+    .big-reassure {
+      background: var(--sage);
+      border-radius: 20px;
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+      margin: 1.75rem 0 1.5rem;
+      border: 2px solid var(--sage-mid);
+    }
+    .big-reassure .emoji { font-size: 2.5rem; display:block; margin-bottom:0.75rem; }
+    .big-reassure h2    { font-size: 1.15rem; color: #2d5a28; margin-bottom: 0.5rem; }
+    .big-reassure p     { font-size: 0.9rem; color: #4a7a45; margin: 0; line-height: 1.8; }
+
+    .backup-section h3 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.875rem;
+    }
+
+    .backup-item-full {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1.5px solid var(--sage-mid);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .backup-item-full .bif-icon { font-size: 2rem; flex-shrink: 0; }
+    .backup-item-full .bif-content { flex: 1; }
+    .backup-item-full .bif-title  { font-weight: 600; font-size: 0.95rem; color: var(--text-dark); margin-bottom: 0.2rem; }
+    .backup-item-full .bif-desc   { font-size: 0.83rem; color: var(--text-mid); line-height: 1.6; margin: 0; }
+    .backup-item-full .bif-check  {
+      background: var(--sage-dark);
+      color: white;
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    .storage-bar-wrap { margin: 1.25rem 0; }
+    .storage-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      margin-bottom: 0.4rem;
+    }
+    .storage-bar {
+      height: 10px;
+      background: var(--blush);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .storage-bar-fill {
+      height: 100%;
+      border-radius: 5px;
+      background: linear-gradient(90deg, var(--rose) 0%, var(--blush-mid) 100%);
+      transition: width 1s ease;
+    }
+
+    .how-storage-works {
+      background: var(--lavender);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .how-storage-works h3 { font-size: 0.95rem; margin-bottom: 0.75rem; color: #4a3a80; }
+    .how-storage-works p  { font-size: 0.88rem; color: #5a4a90; line-height: 1.8; margin-bottom: 0.6rem; }
+    .how-storage-works p:last-child { margin-bottom: 0; }
+
+    .tips-section { margin: 1.75rem 0 2rem; }
+    .tips-section h3 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.875rem;
+    }
+
+    .tip-card-header .chevron {
+      margin-left: auto;
+      color: var(--text-light);
+      transition: transform 0.2s ease;
+    }
+    .tip-card.open .chevron { transform: rotate(180deg); }
+
+    .check-list { list-style: none; }
+    .check-list li {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+    }
+    .check-list li::before {
+      content: '✓';
+      color: var(--sage-dark);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .danger-note {
+      background: var(--blush);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      color: var(--rose-dark);
+      margin-top: 0.75rem;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <span class="nav-logo">🌸 Hello Galaxy</span>
+      <ul class="nav-links">
+        <li><a href="index.html">หน้าหลัก</a></li>
+        <li><a href="manual.html">คู่มือ</a></li>
+        <li><a href="storage.html" class="active">พื้นที่เก็บข้อมูล</a></li>
+        <li><a href="chat.html">ถามได้เลย</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="storage-hero">
+    <h1>🗄️ พื้นที่เก็บข้อมูล</h1>
+    <p>ทุกอย่างปลอดภัย ไม่ต้องรีบลบอะไรทั้งนั้น</p>
+  </div>
+
+  <div class="container">
+
+    <!-- Big reassurance -->
+    <div class="big-reassure">
+      <span class="emoji">🌿</span>
+      <h2>ไฟล์ของมดปลอดภัยอยู่หลายที่แล้ว</h2>
+      <p>
+        รูปภาพ ไฟล์งาน และข้อความทั้งหมดมีสำเนาสำรองอยู่ในหลายที่<br>
+        ไม่ต้องรีบลบอะไรก็ได้นะ ค่อยๆ ทำตอนไหนก็ได้ที่สบายใจ
+      </p>
+    </div>
+
+    <!-- Backup locations -->
+    <div class="backup-section">
+      <h3>ไฟล์ของมดอยู่ที่ไหนบ้าง ✅</h3>
+
+      <div class="backup-item-full">
+        <div class="bif-icon">☁️</div>
+        <div class="bif-content">
+          <div class="bif-title">iCloud</div>
+          <p class="bif-desc">รูปภาพและไฟล์ทั้งหมดจาก iPhone ยังอยู่ใน iCloud ครบ เข้าได้จาก icloud.com หรือเปิดบน iPhone เครื่องเก่าได้ตลอด</p>
+        </div>
+        <span class="bif-check">✓ ปลอดภัย</span>
+      </div>
+
+      <div class="backup-item-full">
+        <div class="bif-icon">🟢</div>
+        <div class="bif-content">
+          <div class="bif-title">Google Drive / Google Photos</div>
+          <p class="bif-desc">ถ้าเปิด Google Photos ไว้ รูปจาก S26 Ultra จะแบ็คอัพอัตโนมัติทุกวัน เข้าได้จากทุกอุปกรณ์และเว็บ</p>
+        </div>
+        <span class="bif-check">✓ ปลอดภัย</span>
+      </div>
+
+      <div class="backup-item-full">
+        <div class="bif-icon">💻</div>
+        <div class="bif-content">
+          <div class="bif-title">คอมพิวเตอร์ส่วนตัว</div>
+          <p class="bif-desc">ไฟล์ที่โอนมาแล้วหรือ sync อยู่ที่คอมฯ มีสำเนาอยู่ที่นั่น ไม่ได้หายไปไหน</p>
+        </div>
+        <span class="bif-check">✓ ปลอดภัย</span>
+      </div>
+
+      <div class="backup-item-full">
+        <div class="bif-icon">💾</div>
+        <div class="bif-content">
+          <div class="bif-title">External SSD / ฮาร์ดดิสก์ภายนอก</div>
+          <p class="bif-desc">ข้อมูลที่แบ็คอัพไว้ก่อนหน้าอยู่ที่นี่ครบ สามารถเปิดดูได้ตลอดเวลา</p>
+        </div>
+        <span class="bif-check">✓ ปลอดภัย</span>
+      </div>
+
+    </div>
+
+    <!-- How storage works -->
+    <div class="how-storage-works">
+      <h3>📱 พื้นที่เก็บข้อมูล Android vs iPhone ต่างกันยังไง?</h3>
+      <p>
+        บน iPhone พื้นที่เก็บข้อมูลจะจัดการโดย Apple เป็นหลัก รูปภาพและแอพรวมกันอยู่ในที่เดียว
+        ไม่เห็นว่าอยู่ที่ไหน
+      </p>
+      <p>
+        บน Android (Samsung) มองเห็นไฟล์ได้ตรงๆ ผ่านแอพ <strong>"ไฟล์ส่วนตัว"</strong> —
+        คล้ายกับ Finder บน Mac หรือ Explorer บน Windows แบ่งเป็น รูปภาพ, วิดีโอ, เอกสาร, ดาวน์โหลด
+      </p>
+      <p>
+        สาเหตุที่รู้สึกว่า "เต็มเร็ว" มักมาจากรูปใน WhatsApp และ Lark ที่โหลดมาเองอัตโนมัติ
+        — ไม่ใช่ความผิดของมดเลย และแก้ไขได้ง่ายมาก
+      </p>
+    </div>
+
+    <!-- Storage tips -->
+    <div class="tips-section">
+      <h3>วิธีจัดการพื้นที่ — ทำเมื่อไหรก็ได้ ไม่บังคับ 💚</h3>
+
+      <div class="tip-card" id="tip1">
+        <div class="tip-card-header" onclick="toggleTip('tip1')">
+          <span class="tip-card-icon">📲</span>
+          <span class="tip-card-title">ดูว่าพื้นที่เหลือเท่าไหร่</span>
+          <span class="tip-optional">เริ่มจากตรงนี้</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="tip-card-body">
+          <ul class="check-list">
+            <li>เปิด "ตั้งค่า" → "การดูแลอุปกรณ์"</li>
+            <li>แตะ "ที่จัดเก็บข้อมูล"</li>
+            <li>จะเห็นว่าอะไรใช้พื้นที่เยอะที่สุด</li>
+          </ul>
+          <p style="font-size:0.85rem; color:var(--text-mid); margin-top:0.75rem;">ดูแล้วไม่ต้องทำอะไรก็ได้นะ แค่รู้ก่อน 😊</p>
+        </div>
+      </div>
+
+      <div class="tip-card" id="tip2">
+        <div class="tip-card-header" onclick="toggleTip('tip2')">
+          <span class="tip-card-icon">💬</span>
+          <span class="tip-card-title">ปิดดาวน์โหลดอัตโนมัติใน WhatsApp</span>
+          <span class="tip-optional">แนะนำมาก</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="tip-card-body">
+          <p>WhatsApp โหลดรูปและวิดีโอทุกอันที่ส่งมามาเก็บในเครื่องโดยอัตโนมัติ — เปิดการตั้งค่านี้จะประหยัดพื้นที่ได้เยอะมาก</p>
+          <ul class="check-list">
+            <li>เปิด WhatsApp → แตะจุดสามจุด (⋮) → "การตั้งค่า"</li>
+            <li>แตะ "พื้นที่จัดเก็บและข้อมูล"</li>
+            <li>แตะ "การดาวน์โหลดมีเดียอัตโนมัติ"</li>
+            <li>ปิดการดาวน์โหลดรูปและวิดีโอผ่านข้อมูลมือถือ</li>
+          </ul>
+          <div class="danger-note">⚠️ รูปที่ดาวน์โหลดมาแล้วยังอยู่ในเครื่อง — ปิดนี้แค่หยุดไม่ให้ดาวน์โหลดอันใหม่เท่านั้น</div>
+        </div>
+      </div>
+
+      <div class="tip-card" id="tip3">
+        <div class="tip-card-header" onclick="toggleTip('tip3')">
+          <span class="tip-card-icon">🗂️</span>
+          <span class="tip-card-title">ลบรูปที่รู้แน่ว่าไม่ต้องการ</span>
+          <span class="tip-optional">ทางเลือก</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="tip-card-body">
+          <p>ถ้ารู้สึกอยากเริ่มจัดการ ทำแบบค่อยๆ ไม่ต้องรีบ:</p>
+          <ul class="check-list">
+            <li>เปิด "แกลเลอรี" → แตะ "อัลบั้ม"</li>
+            <li>ดูอัลบั้ม "WhatsApp" หรือ "Downloads" — มักมีรูปซ้ำเยอะ</li>
+            <li>กดค้างเพื่อเลือกหลายรูป → แตะถังขยะ</li>
+            <li>รูปจะไปอยู่ในถังขยะ 30 วัน — ยังกู้คืนได้</li>
+          </ul>
+          <div class="danger-note">💚 ไม่มีอะไรหายถาวรทันที ถังขยะเก็บไว้ 30 วัน ถ้าลบผิดยังกู้คืนได้</div>
+        </div>
+      </div>
+
+      <div class="tip-card" id="tip4">
+        <div class="tip-card-header" onclick="toggleTip('tip4')">
+          <span class="tip-card-icon">🟢</span>
+          <span class="tip-card-title">เปิด Google Photos แบ็คอัพอัตโนมัติ</span>
+          <span class="tip-optional">ทางเลือก</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="tip-card-body">
+          <p>ถ้าเปิดตัวนี้ รูปทุกรูปจะแบ็คอัพไป Google โดยอัตโนมัติ — แม้ลบจากเครื่อง ก็ยังดูได้จาก Google Photos</p>
+          <ul class="check-list">
+            <li>เปิดแอพ "Google Photos"</li>
+            <li>แตะรูปโปรไฟล์มุมขวาบน → "การตั้งค่า Photos"</li>
+            <li>แตะ "สำรองข้อมูล" → เปิดสวิตช์</li>
+          </ul>
+          <p style="font-size:0.83rem; color:var(--text-mid); margin-top:0.5rem;">Google Photos ให้พื้นที่ฟรี 15 GB — ถ้าต้องการมากกว่านั้นอาจต้องซื้อเพิ่ม</p>
+        </div>
+      </div>
+
+      <div class="tip-card" id="tip5">
+        <div class="tip-card-header" onclick="toggleTip('tip5')">
+          <span class="tip-card-icon">⚡</span>
+          <span class="tip-card-title">ให้เครื่องจัดการพื้นที่อัตโนมัติ</span>
+          <span class="tip-optional">ง่ายที่สุด</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="tip-card-body">
+          <p>Samsung มีฟีเจอร์ "การดูแลอุปกรณ์" ที่คอยกวาดล้างไฟล์ชั่วคราว cache และข้อมูลที่ไม่จำเป็น:</p>
+          <ul class="check-list">
+            <li>เปิด "ตั้งค่า" → "การดูแลอุปกรณ์"</li>
+            <li>แตะ "ปรับให้เหมาะสม" (ปุ่มใหญ่ตรงกลาง)</li>
+            <li>รอสักครู่ — เครื่องจะทำความสะอาดเอง</li>
+          </ul>
+          <p style="font-size:0.83rem; color:var(--text-mid); margin-top:0.5rem;">ทำแบบนี้สัปดาห์ละครั้งก็พอ ไม่ต้องทำบ่อย</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom reassurance -->
+    <div class="callout callout-sage" style="margin-bottom:3rem;">
+      <span class="callout-icon">💚</span>
+      <div class="callout-text">
+        <strong>จำไว้นะมด:</strong> ไม่มีอะไรหายถาวรโดยไม่ได้ตั้งใจ
+        ไฟล์ทุกอย่างมีอย่างน้อย 2–3 สำเนาอยู่ในที่ต่างๆ แล้ว
+        จะลบหรือไม่ลบก็ได้ ทำตอนสบายใจก็พอ 🌿
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <span>🌸 ทำขึ้นด้วยความห่วงใย</span>
+    <span>Samsung Galaxy S26 Ultra · คู่มือส่วนตัว</span>
+  </footer>
+
+<script>
+function toggleTip(id) {
+  const card = document.getElementById(id);
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.tip-card.open').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+}
+</script>
+</body>
+</html>

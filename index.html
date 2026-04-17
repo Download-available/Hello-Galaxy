@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>สวัสดี Galaxy 🌸</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .welcome-hero {
+      background: linear-gradient(150deg, #f5e6e8 0%, #ede8f5 40%, #d8ecd4 100%);
+      padding: 3.5rem 1.5rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .welcome-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 70% 20%, rgba(255,255,255,0.4) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .welcome-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.7);
+      color: var(--rose-dark);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 1rem;
+      border-radius: var(--radius-pill);
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.03em;
+      backdrop-filter: blur(4px);
+    }
+    .welcome-hero h1 {
+      font-size: clamp(1.8rem, 6vw, 2.6rem);
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+    }
+    .welcome-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      max-width: 360px;
+      margin: 0 auto 0.5rem;
+      line-height: 1.8;
+    }
+    .phone-visual {
+      font-size: 5rem;
+      display: block;
+      margin: 0 auto 1.25rem;
+      filter: drop-shadow(0 8px 16px rgba(192,128,144,0.25));
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+    .letter-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2rem 1.75rem;
+      box-shadow: var(--shadow-card);
+      margin: 2rem 0;
+      position: relative;
+      border: 1px solid rgba(192,128,144,0.1);
+      text-align: left;
+    }
+    .letter-card::before {
+      content: '✉️';
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--white);
+      padding: 0 0.5rem;
+      font-size: 1.4rem;
+    }
+    .letter-card p {
+      color: var(--text-mid);
+      line-height: 2;
+      font-size: 1rem;
+    }
+    .letter-card p strong {
+      color: var(--text-dark);
+    }
+    .section-nav {
+      padding: 1.5rem 0 3rem;
+    }
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .nav-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.875rem;
+    }
+    .nav-card-item {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: all var(--transition);
+      border: 1.5px solid transparent;
+    }
+    .nav-card-item:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-card);
+      color: inherit;
+    }
+    .nav-card-item.rose:hover  { border-color: var(--blush-mid); }
+    .nav-card-item.sage:hover  { border-color: var(--sage-mid); }
+    .nav-card-item.lav:hover   { border-color: var(--lavender-mid); }
+    .nav-card-item.cream:hover { border-color: var(--blush-mid); }
+    .nav-card-emoji { font-size: 2.2rem; display: block; margin-bottom: 0.6rem; }
+    .nav-card-label { font-weight: 600; font-size: 0.95rem; color: var(--text-dark); display: block; margin-bottom: 0.2rem; }
+    .nav-card-desc  { font-size: 0.78rem; color: var(--text-light); line-height: 1.5; }
+    .reassure-strip {
+      background: var(--sage);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    .reassure-strip .icon { font-size: 1.3rem; flex-shrink: 0; }
+    .reassure-strip p { font-size: 0.9rem; color: #3a6035; margin: 0; line-height: 1.75; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <span class="nav-logo">🌸 Hello Galaxy</span>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">หน้าหลัก</a></li>
+        <li><a href="manual.html">คู่มือ</a></li>
+        <li><a href="storage.html">พื้นที่เก็บข้อมูล</a></li>
+        <li><a href="chat.html">ถามได้เลย</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="welcome-hero">
+    <span class="phone-visual">📱</span>
+    <div class="welcome-tag">Samsung Galaxy S26 Ultra</div>
+    <h1>ยินดีต้อนรับนะมด 🌸</h1>
+    <p class="welcome-subtitle">คู่มือนี้ทำขึ้นเพื่อมดโดยเฉพาะ ใช้ตอนไหนก็ได้ ไม่มีการบ้าน ไม่ต้องจำทุกอย่าง</p>
+  </div>
+
+  <!-- Main content -->
+  <div class="container">
+
+    <!-- Letter -->
+    <div class="letter-card fade-in">
+      <p>มดที่รัก,</p>
+      <p>
+        รู้ว่าการเปลี่ยนมาใช้ Android ครั้งแรกอาจรู้สึกแปลกๆ นิดนึง — แต่ไม่เป็นไรเลยนะ
+        ทุกอย่างที่ทำบน iPhone ยังทำได้บนเครื่องนี้เหมือนกัน แค่บางอย่างอยู่คนละที่นิดหน่อย
+      </p>
+      <p>
+        <strong>ไม่จำเป็นต้องเรียนรู้ทุกอย่างในวันเดียว</strong> เปิดดูตอนที่สงสัยก็พอ
+        หรือจะถามผู้ช่วย AI ที่อยู่ในคู่มือนี้ก็ได้เลย ตอบเป็นภาษาไทยทั้งหมด
+      </p>
+      <p style="margin-bottom:0">เครื่องนี้ทำขึ้นมาเพื่อมด ดูแลให้ดีนะ 🌿</p>
+    </div>
+
+    <!-- Reassurance -->
+    <div class="reassure-strip fade-in">
+      <span class="icon">🔒</span>
+      <p>ไฟล์ รูปภาพ และข้อความของมดปลอดภัยทุกอย่าง ไม่มีอะไรหายไปไหนเพราะเปลี่ยนเครื่อง — <strong>มีแบ็คอัพอยู่หลายที่แล้ว</strong></p>
+    </div>
+
+    <!-- Section nav -->
+    <div class="section-nav">
+      <p class="section-label">จะเริ่มจากตรงไหนดี?</p>
+      <div class="nav-cards-grid">
+
+        <a href="manual.html" class="nav-card-item rose fade-in">
+          <span class="nav-card-emoji">📖</span>
+          <span class="nav-card-label">คู่มือการใช้งาน</span>
+          <span class="nav-card-desc">ค้นหาและดูวิธีใช้ทุกอย่าง แบ่งหมวดให้เข้าใจง่าย</span>
+        </a>
+
+        <a href="storage.html" class="nav-card-item sage fade-in">
+          <span class="nav-card-emoji">🗄️</span>
+          <span class="nav-card-label">พื้นที่เก็บข้อมูล</span>
+          <span class="nav-card-desc">ข้อมูลอยู่ที่ไหน ปลอดภัยไหม และจะจัดการยังไง</span>
+        </a>
+
+        <a href="chat.html" class="nav-card-item lav fade-in">
+          <span class="nav-card-emoji">💬</span>
+          <span class="nav-card-label">ถามผู้ช่วย AI</span>
+          <span class="nav-card-desc">ถามอะไรก็ได้เป็นภาษาไทย ตอบทันที ไม่ตัดสิน</span>
+        </a>
+
+        <a href="manual.html#camera" class="nav-card-item cream fade-in">
+          <span class="nav-card-emoji">📷</span>
+          <span class="nav-card-label">กล้องถ่ายรูป</span>
+          <span class="nav-card-desc">โหมดต่างๆ เทคนิคถ่ายสวย และการจัดการรูป</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Quick tips -->
+    <div style="margin-bottom: 3rem;">
+      <p class="section-label">สิ่งที่ควรรู้ก่อนเลย 3 อย่าง</p>
+
+      <div class="card fade-in" style="margin-bottom:0.875rem;">
+        <div style="display:flex; align-items:flex-start; gap:1rem;">
+          <div style="font-size:1.8rem; flex-shrink:0;">👆</div>
+          <div>
+            <h3 style="margin-bottom:0.25rem;">ปัดขึ้นจากด้านล่าง = กลับหน้าหลัก</h3>
+            <p style="font-size:0.9rem; color:var(--text-mid); margin:0;">
+              แทนการกดปุ่ม Home บน iPhone — ปัดขึ้นครั้งเดียวกลับหน้าหลัก
+              ปัดขึ้นค้างไว้นิดนึงดูแอพที่เปิดอยู่ทั้งหมด
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card fade-in" style="margin-bottom:0.875rem;">
+        <div style="display:flex; align-items:flex-start; gap:1rem;">
+          <div style="font-size:1.8rem; flex-shrink:0;">📲</div>
+          <div>
+            <h3 style="margin-bottom:0.25rem;">ปัดลงจากขวาบน = การตั้งค่าด่วน</h3>
+            <p style="font-size:0.9rem; color:var(--text-mid); margin:0;">
+              เหมือน Control Center บน iPhone — เปิด Wi-Fi, Bluetooth,
+              ปิดเสียง และอื่นๆ ได้จากตรงนี้
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card fade-in">
+        <div style="display:flex; align-items:flex-start; gap:1rem;">
+          <div style="font-size:1.8rem; flex-shrink:0;">🔙</div>
+          <div>
+            <h3 style="margin-bottom:0.25rem;">ปัดจากขอบซ้ายหรือขวา = ย้อนกลับ</h3>
+            <p style="font-size:0.9rem; color:var(--text-mid); margin:0;">
+              แทนปุ่ม Back — ปัดจากขอบหน้าจอเข้ามาได้เลย
+              หรือใช้ปุ่ม ‹ ที่แถบด้านล่างก็ได้
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span>🌸 ทำขึ้นด้วยความห่วงใย</span>
+    <span>Samsung Galaxy S26 Ultra · คู่มือส่วนตัว</span>
+  </footer>
+
+</body>
+</html>
